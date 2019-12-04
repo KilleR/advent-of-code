@@ -25,21 +25,17 @@ func Test_getFuel(t *testing.T) {
 }
 
 func Test_getExtraFuel(t *testing.T) {
-	type args struct {
-		mass float64
-	}
 	tests := []struct {
 		name     string
-		args     args
+		mass     float64
 		wantFuel float64
 	}{
-		// TODO: Add test cases.
+		{"zero extra", 2, 0},
+		{"medium", 33583, 16763},
 	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if gotFuel := getExtraFuel(tt.args.mass); gotFuel != tt.wantFuel {
-				t.Errorf("getExtraFuel() = %v, want %v", gotFuel, tt.wantFuel)
-			}
-		})
+
+	assert := assert.New(t)
+	for _, test := range tests {
+		assert.Equal(getExtraFuel(test.mass), test.wantFuel, test.name)
 	}
 }
