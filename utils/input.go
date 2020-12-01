@@ -1,8 +1,10 @@
 package utils
 
 import (
+	"fmt"
 	"io/ioutil"
 	"log"
+	"strconv"
 	"strings"
 )
 
@@ -12,7 +14,7 @@ func GetInput(path string) []string {
 		log.Fatalln("Failed to open input:", err)
 	}
 
-	return strings.Split(string(file), "\r\n")
+	return strings.Split(string(file), "\n")
 }
 
 func fromHexChar(c byte) byte {
@@ -26,4 +28,18 @@ func fromHexChar(c byte) byte {
 	}
 
 	return 0
+}
+
+func StringSliceToInts(in []string) (out []int, err error) {
+	out = make([]int, len(in))
+	var currentInt int
+	for i, v := range in {
+		fmt.Println(v)
+		currentInt, err = strconv.Atoi(v)
+		if err != nil {
+			return
+		}
+		out[i] = currentInt
+	}
+	return
 }
