@@ -14,17 +14,11 @@ func day2() {
 	input := utils.GetInput("aoc2020/day2.txt")
 
 	validCount := 0
-	var passwords []string
-	type minMax struct {
-		min int
-		max int
-	}
-	rules := make(map[string]minMax)
 
 	for _, line := range input {
 		matches := pwRex.FindStringSubmatch(line)
 		password := matches[4]
-		passwords = append(passwords, password)
+		char := matches[3]
 
 		min, err := strconv.Atoi(matches[1])
 		if err != nil {
@@ -36,28 +30,13 @@ func day2() {
 			log.Fatalln("couldn't parse min value", matches[2], err)
 		}
 
-		rules[matches[3]] = minMax{
-			min: min,
-			max: max,
-		}
+		fmt.Println(password, char, min, max)
 
-		pwCharCount := make(map[string]int)
-		for _, charInt := range password {
-			char := string(charInt)
-			_, ok := pwCharCount[char]
-			if !ok {
-				pwCharCount[char] = 0
-			}
-			pwCharCount[char]++
-		}
-
-		fmt.Println(matches)
-		fmt.Println(pwCharCount)
-		count, ok := pwCharCount[matches[3]]
-		if !ok || count < min || count > max {
-			fmt.Println("INVALID")
-		} else {
+		firstChar := string(password[min-1])
+		secondChar := string(password[max-1])
+		if firstChar != secondChar && (firstChar == char || secondChar == char) {
 			validCount++
+			fmt.Println("VALID")
 		}
 
 	}
