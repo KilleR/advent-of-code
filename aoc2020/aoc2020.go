@@ -6,10 +6,11 @@ import (
 )
 
 func main() {
+
 	fmt.Println("Running ... ")
 	start := time.Now()
 
-	day8()
+	day9()
 
 	fmt.Println("done in", time.Since(start))
 }

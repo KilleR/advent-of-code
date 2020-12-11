@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"fmt"
 	"io/ioutil"
 	"log"
 	"strconv"
@@ -34,7 +33,6 @@ func StringSliceToInts(in []string) (out []int, err error) {
 	out = make([]int, len(in))
 	var currentInt int
 	for i, v := range in {
-		fmt.Println(v)
 		currentInt, err = strconv.Atoi(v)
 		if err != nil {
 			return
