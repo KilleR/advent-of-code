@@ -13,7 +13,7 @@ func GetInput(path string) []string {
 		log.Fatalln("Failed to open input:", err)
 	}
 
-	return strings.Split(string(file), "\n")
+	return strings.Split(string(file), "\r\n")
 }
 
 func fromHexChar(c byte) byte {

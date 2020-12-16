@@ -26,7 +26,7 @@ func newAdaptor(joltage int) (a *adaptor) {
 
 var currentAdaptorCount int
 
-func (a adaptor) getValidAdaptorCount() int {
+func (a *adaptor) getValidAdaptorCount() int {
 	currentAdaptorCount++
 	if a.getValidAdaptorCountMemo != -1 {
 		return a.getValidAdaptorCountMemo
@@ -107,7 +107,6 @@ func day10() {
 		}
 	}()
 
-	fmt.Println("valid adaptors")
 	for jolt, adaptor := range adaptors {
 		for j := jolt + 1; j <= jolt+3; j++ {
 			compatAdaptor, ok := adaptors[j]
@@ -115,14 +114,11 @@ func day10() {
 				adaptor.validAdaptors = append(adaptor.validAdaptors, compatAdaptor)
 			}
 		}
-		fmt.Println("adaptor", jolt, len(adaptor.validAdaptors))
 	}
 
-	fmt.Println("calc adaptor chains")
 	totalChain := 1
-	for jolt, adaptor := range adaptors {
+	for _, adaptor := range adaptors {
 		totalChain *= adaptor.getAdaptorChain()
-		fmt.Println("adaptor", jolt, len(adaptor.validAdaptors), adaptor.getAdaptorChain())
 	}
 	fmt.Println("Adaptor chain:", totalChain)
 
