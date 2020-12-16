@@ -20,7 +20,7 @@ func day%[1]d() {
 	input := utils.GetInput("aoc%[2]d/day%[1]d_ex.txt")
   
 	for _, line := range input {
-    // code here
+    	// code here
 		fmt.Println(line)
 	}
 }
@@ -45,5 +45,5 @@ func day%[1]d() {
 }
 
 func main() {
-	scaffold(10)
+	scaffold(11)
 }
