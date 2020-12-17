@@ -45,5 +45,5 @@ func day%[1]d() {
 }
 
 func main() {
-	scaffold(11)
+	scaffold(12)
 }
