@@ -19,56 +19,60 @@ func day12() {
 
 	input := utils.GetInput("aoc2020/day12.txt")
 
-	nPos := 0
-	ePos := 0
-	heading := DIR_E
+	sPosN := 0
+	sPosE := 0
+	wpPosN := 1
+	wpPosE := 10
 
 	for _, line := range input {
 		// code here
-		fmt.Println(line)
+		//fmt.Println(line)
 		matches := rex.FindStringSubmatch(line)
-		fmt.Println(matches)
+		//fmt.Println(matches)
 
 		dir := matches[1]
 		magnitude, _ := strconv.Atoi(matches[2])
 
 		switch dir {
 		case "E":
-			ePos += magnitude
+			wpPosE += magnitude
 		case "W":
-			ePos -= magnitude
+			wpPosE -= magnitude
 		case "N":
-			nPos += magnitude
+			wpPosN += magnitude
 		case "S":
-			nPos -= magnitude
+			wpPosN -= magnitude
 		case "R":
-			heading = (heading + magnitude/90) % 4
+			rotCount := (magnitude / 90) % 4
+			for i := 0; i < rotCount; i++ {
+				oldE := wpPosE
+				oldN := wpPosN
+				wpPosE = oldN
+				wpPosN = -oldE
+			}
 		case "L":
-			heading = (heading - magnitude/90) % 4
-			if heading < 0 {
-				heading += 4
+			rotCount := (magnitude / 90) % 4
+			for i := 0; i < rotCount; i++ {
+				oldE := wpPosE
+				oldN := wpPosN
+				wpPosE = -oldN
+				wpPosN = oldE
 			}
 		case "F":
-			switch heading {
-			case DIR_E:
-				ePos += magnitude
-			case DIR_W:
-				ePos -= magnitude
-			case DIR_N:
-				nPos += magnitude
-			case DIR_S:
-				nPos -= magnitude
-			}
+			sPosN += wpPosN * magnitude
+			sPosE += wpPosE * magnitude
 		}
-		fmt.Println("we are at", ePos, nPos, heading)
+		//fmt.Println("waypoint at", wpPosE, wpPosN)
+		//fmt.Println("ship at", sPosE, sPosN)
 	}
 
-	fmt.Println("we are at", ePos, nPos)
-	eAbs := ePos
+	fmt.Println("waypoint at", wpPosE, wpPosN)
+	fmt.Println("ship at", sPosE, sPosN)
+	eAbs := sPosE
 	if eAbs < 0 {
 		eAbs *= -1
 	}
-	nAbs := nPos
+	nAbs := sPosN
 	if nAbs < 0 {
 		nAbs *= -1
 	}
