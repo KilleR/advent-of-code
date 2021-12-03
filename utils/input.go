@@ -7,6 +7,16 @@ import (
 	"strings"
 )
 
+func GetInputFile(year string, day string, useExampleFile bool) (inputString string) {
+	inputString = "aoc" + year + "/" + day
+	if useExampleFile {
+		inputString += "_ex"
+	}
+	inputString += ".txt"
+
+	return inputString
+}
+
 func GetInput(path string) []string {
 	file, err := ioutil.ReadFile(path)
 	if err != nil {
