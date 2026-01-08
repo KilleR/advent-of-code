@@ -51,3 +51,19 @@ func StringSliceToInts(in []string) (out []int, err error) {
 	}
 	return
 }
+
+func StringSliceToIntsWithPrefix(in []string, prefixLen int) (out []int, outPrefix []string, err error) {
+	out = make([]int, len(in))
+	outPrefix = make([]string, len(in))
+	var currentInt int
+	for i, v := range in {
+		currentPrefix := v[:prefixLen]
+		currentInt, err = strconv.Atoi(v[prefixLen:])
+		if err != nil {
+			return
+		}
+		out[i] = currentInt
+		outPrefix[i] = currentPrefix
+	}
+	return
+}
